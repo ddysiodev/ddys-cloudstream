@@ -1,0 +1,26 @@
+[
+    {
+        "iconUrl": "https://raw.githubusercontent.com/ddysiodev/ddys-cloudstream/main/assets/icon.png",
+        "fileHash": "sha256-93ddf5f88a3d918fdd6dfac4ef64e4f08367f4c3aba070445ab8a4101bbd5408",
+        "apiVersion": 1,
+        "repositoryUrl": "https://github.com/ddysiodev/ddys-cloudstream",
+        "fileSize": 40772,
+        "status": 1,
+        "language": "zh",
+        "authors": [
+            "DDYS"
+        ],
+        "tvTypes": [
+            "Movie",
+            "TvSeries",
+            "Anime",
+            "Documentary",
+            "Others"
+        ],
+        "version": 1,
+        "internalName": "DdysProvider",
+        "description": "DDYS API CloudStream provider with search, categories, details, episodes, and configurable playback sources.",
+        "url": "https://raw.githubusercontent.com/ddysiodev/ddys-cloudstream/builds/DdysProvider.cs3",
+        "name": "DdysProvider"
+    }
+]

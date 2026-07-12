@@ -1,0 +1,8 @@
+{
+  "name": "DDYS CloudStream",
+  "description": "DDYS API 的 CloudStream 扩展仓库",
+  "manifestVersion": 1,
+  "pluginLists": [
+    "https://raw.githubusercontent.com/ddysiodev/ddys-cloudstream/builds/plugins.json"
+  ]
+}
