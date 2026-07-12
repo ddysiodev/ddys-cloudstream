@@ -1,0 +1,72 @@
+name: Build
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - "*.md"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: cloudstream-build
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+        with:
+          path: src
+
+      - name: Setup JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Check metadata
+        run: |
+          cd "$GITHUB_WORKSPACE/src"
+          node tools/check.mjs
+          node --test tests/*.test.mjs
+
+      - name: Build CloudStream plugin
+        run: |
+          cd "$GITHUB_WORKSPACE/src"
+          chmod +x gradlew
+          ./gradlew make makePluginsJson
+          ./gradlew ensureJarCompatibility
+
+      - name: Publish builds branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$GITHUB_WORKSPACE/public"
+          find "$GITHUB_WORKSPACE/src" -path "*/build/*.cs3" -type f -exec cp {} "$GITHUB_WORKSPACE/public" \;
+          find "$GITHUB_WORKSPACE/src" -path "*/build/*.jar" -type f -exec cp {} "$GITHUB_WORKSPACE/public" \;
+          cp "$GITHUB_WORKSPACE/src/build/plugins.json" "$GITHUB_WORKSPACE/public/plugins.json"
+          cp "$GITHUB_WORKSPACE/src/repo.json" "$GITHUB_WORKSPACE/public/repo.json"
+          cp "$GITHUB_WORKSPACE/src/assets/icon.png" "$GITHUB_WORKSPACE/public/icon.png"
+
+          cd "$GITHUB_WORKSPACE"
+          git init builds
+          cd builds
+          git config user.email "actions@github.com"
+          git config user.name "GitHub Actions"
+          git remote add origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git fetch origin builds || true
+          git checkout -B builds origin/builds || git checkout --orphan builds
+          find . -mindepth 1 -maxdepth 1 -exec rm -rf {} +
+          cp -R "$GITHUB_WORKSPACE/public/." .
+          git add .
+          git commit -m "Build ${GITHUB_SHA}" || exit 0
+          git push origin builds --force

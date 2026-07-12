@@ -1,0 +1,12 @@
+{
+  "repo": "https://raw.githubusercontent.com/ddysiodev/ddys-cloudstream/main/repo.json",
+  "settings": {
+    "apiBase": "https://example.com/ddys-api",
+    "siteBase": "https://ddys.io",
+    "apiKey": "",
+    "pageSize": 24,
+    "homeLimit": 24,
+    "directOnly": false,
+    "includeExternal": true
+  }
+}

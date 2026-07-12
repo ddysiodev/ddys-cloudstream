@@ -1,0 +1,28 @@
+{
+  "name": "ddys-cloudstream",
+  "version": "0.1.0",
+  "private": true,
+  "description": "DDYS API 的 CloudStream 扩展仓库",
+  "type": "module",
+  "scripts": {
+    "check": "node tools/check.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "build:package": "powershell -NoProfile -ExecutionPolicy Bypass -File tools/build-package.ps1"
+  },
+  "keywords": [
+    "ddys",
+    "cloudstream",
+    "android-tv",
+    "movie",
+    "streaming"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ddysiodev/ddys-cloudstream.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ddysiodev/ddys-cloudstream/issues"
+  },
+  "homepage": "https://github.com/ddysiodev/ddys-cloudstream#readme"
+}
