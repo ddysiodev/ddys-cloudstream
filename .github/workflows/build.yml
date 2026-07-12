@@ -67,7 +67,7 @@ jobs:
           git remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
           git fetch origin builds || true
           git checkout -B builds origin/builds || git checkout --orphan builds
-          find . -mindepth 1 -maxdepth 1 -exec rm -rf {} +
+          find . -mindepth 1 -maxdepth 1 ! -name ".git" -exec rm -rf {} +
           cp -R "$GITHUB_WORKSPACE/public/." .
           git add .
           git commit -m "Build ${GITHUB_SHA}" || exit 0
