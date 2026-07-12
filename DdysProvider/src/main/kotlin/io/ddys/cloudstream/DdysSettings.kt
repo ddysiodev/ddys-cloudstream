@@ -83,7 +83,7 @@ object DdysSettingsDialog {
         val apiBase = textInput(activity, "API Base", settings.apiBase())
         val siteBase = textInput(activity, "Site Base", settings.siteBase())
         val apiKey = textInput(activity, "API Key", settings.apiKey()).apply {
-            inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+            editText.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
         }
         val pageSize = numberInput(activity, "每页数量", settings.pageSize())
         val homeLimit = numberInput(activity, "首页数量", settings.homeLimit())

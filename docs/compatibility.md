@@ -31,5 +31,5 @@ Android TV considerations:
 Known runtime dependencies:
 
 - CloudStream pre-release stubs from `com.lagradost:cloudstream3:pre-release`
-- NiceHttp from `com.github.Blatzar:NiceHttp:0.4.11`
+- NiceHttp from `com.github.Blatzar:NiceHttp:0.4.18`
 - Jackson Kotlin module `2.13.1`

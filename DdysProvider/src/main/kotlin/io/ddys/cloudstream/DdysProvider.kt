@@ -249,9 +249,10 @@ class DdysProvider(private val settings: DdysSettings) : MainAPI() {
     }
 
     private fun DdysMovie.toSearchResponse(): SearchResponse {
-        return newMovieSearchResponse(title, url(settings.siteBase()), tvType()) {
-            posterUrl = poster
-            year = yearInt()
+        val movie = this
+        return newMovieSearchResponse(movie.title, movie.url(settings.siteBase()), movie.tvType()) {
+            posterUrl = movie.poster
+            year = movie.yearInt()
         }
     }
 

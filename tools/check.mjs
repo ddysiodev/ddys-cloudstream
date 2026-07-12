@@ -87,7 +87,7 @@ async function checkGradle() {
   for (const fragment of [
     'com.android.tools.build:gradle:8.7.3',
     'com.github.recloudstream:gradle:-SNAPSHOT',
-    'org.jetbrains.kotlin:kotlin-gradle-plugin:2.1.0',
+    'org.jetbrains.kotlin:kotlin-gradle-plugin:2.3.20',
     'cloudstream("com.lagradost:cloudstream3:pre-release")',
     'namespace = "io.ddys.cloudstream"',
   ]) {
