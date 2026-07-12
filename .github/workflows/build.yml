@@ -48,6 +48,8 @@ jobs:
 
       - name: Publish builds branch
         shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
           mkdir -p "$GITHUB_WORKSPACE/public"
@@ -62,7 +64,7 @@ jobs:
           cd builds
           git config user.email "actions@github.com"
           git config user.name "GitHub Actions"
-          git remote add origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
           git fetch origin builds || true
           git checkout -B builds origin/builds || git checkout --orphan builds
           find . -mindepth 1 -maxdepth 1 -exec rm -rf {} +
