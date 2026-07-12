@@ -54,7 +54,6 @@ jobs:
           set -euo pipefail
           mkdir -p "$GITHUB_WORKSPACE/public"
           find "$GITHUB_WORKSPACE/src" -path "*/build/*.cs3" -type f -exec cp {} "$GITHUB_WORKSPACE/public" \;
-          find "$GITHUB_WORKSPACE/src" -path "*/build/*.jar" -type f -exec cp {} "$GITHUB_WORKSPACE/public" \;
           cp "$GITHUB_WORKSPACE/src/build/plugins.json" "$GITHUB_WORKSPACE/public/plugins.json"
           cp "$GITHUB_WORKSPACE/src/repo.json" "$GITHUB_WORKSPACE/public/repo.json"
           cp "$GITHUB_WORKSPACE/src/assets/icon.png" "$GITHUB_WORKSPACE/public/icon.png"

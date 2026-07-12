@@ -7,7 +7,7 @@ This repository follows the current CloudStream extension repository pattern:
 - The provider is a Kotlin Android library subproject.
 - The plugin is registered with `@CloudstreamPlugin`.
 - `registerMainAPI(DdysProvider(...))` registers the provider.
-- GitHub Actions builds `.cs3`, `.jar`, and `plugins.json`.
+- GitHub Actions builds `.cs3` and `plugins.json`.
 
 The provider uses these CloudStream APIs:
 

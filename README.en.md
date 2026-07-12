@@ -14,7 +14,7 @@ DDYS CloudStream is the official CloudStream extension repository for the DDYS A
 - Series/anime/variety resource lists as selectable episodes
 - Movie pages aggregate all available playback sources
 - Plugin settings for API Base, Site Base, API Key, page size, home limit, direct-only mode, and external resources
-- GitHub Actions build for `.cs3`, `.jar`, and `plugins.json`
+- GitHub Actions build for `.cs3` and `plugins.json`
 - Static checks, Node tests, and Release ZIP packaging
 
 ## Install

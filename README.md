@@ -14,7 +14,7 @@ DDYS CloudStream 是低端影视 API 的官方 CloudStream 扩展仓库，面向
 - 剧集/动漫/综艺：把资源列表展示为可选 episode
 - 电影：播放时聚合全部可用线路
 - 设置页：API Base、Site Base、API Key、首页数量、每页数量、直链策略、外部资源策略
-- GitHub Actions 自动构建 `.cs3`、`.jar` 和 `plugins.json`
+- GitHub Actions 自动构建 `.cs3` 和 `plugins.json`
 - 本地静态自检、Node 测试、Release ZIP
 
 ## 安装
