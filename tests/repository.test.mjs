@@ -13,6 +13,6 @@ test('repo.json points to generated builds manifest', async () => {
 test('package metadata is private and versioned', async () => {
   const pkg = JSON.parse(await readFile('package.json', 'utf8'));
   assert.equal(pkg.name, 'ddys-cloudstream');
-  assert.equal(pkg.version, '0.1.0');
+  assert.equal(pkg.version, '0.1.1');
   assert.equal(pkg.private, true);
 });

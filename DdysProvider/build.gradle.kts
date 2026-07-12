@@ -1,4 +1,4 @@
-version = 1
+version = 2
 
 cloudstream {
     description = "DDYS API CloudStream provider with search, categories, details, episodes, and configurable playback sources."

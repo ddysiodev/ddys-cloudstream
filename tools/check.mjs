@@ -53,7 +53,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(JSON.stringify({ ok: true, package: 'ddys-cloudstream', version: '0.1.0', files: (await listFiles(root)).length }, null, 2));
+console.log(JSON.stringify({ ok: true, package: 'ddys-cloudstream', version: '0.1.1', files: (await listFiles(root)).length }, null, 2));
 
 async function checkJson() {
   for (const full of await listFiles(root)) {
@@ -70,7 +70,7 @@ async function checkJson() {
 async function checkPackage() {
   const pkg = JSON.parse(await read('package.json'));
   assert(pkg.name === 'ddys-cloudstream', 'package name mismatch.');
-  assert(pkg.version === '0.1.0', 'package version mismatch.');
+  assert(pkg.version === '0.1.1', 'package version mismatch.');
   assert(pkg.private === true, 'package must be private.');
   assert(pkg.type === 'module', 'package must use ESM for checks.');
 }
@@ -95,7 +95,7 @@ async function checkGradle() {
   }
 
   const pluginGradle = await read('DdysProvider/build.gradle.kts');
-  for (const fragment of ['version = 1', 'status = 1', 'tvTypes', 'iconUrl', 'language = "zh"']) {
+  for (const fragment of ['version = 2', 'status = 1', 'tvTypes', 'iconUrl', 'language = "zh"']) {
     assert(pluginGradle.includes(fragment), `DdysProvider/build.gradle.kts missing ${fragment}`);
   }
 
@@ -116,6 +116,9 @@ async function checkKotlin() {
     'override suspend fun loadLinks',
     'requestJson',
     'safeSources',
+    'movieArrayItems',
+    'movieArrayKeys = listOf("items", "list", "results", "movies", "records", "data")',
+    'Regex("""/(?:movie|movies)/([^/?#]+)""")',
     'newMovieLoadResponse',
     'newTvSeriesLoadResponse',
     'newExtractorLink',

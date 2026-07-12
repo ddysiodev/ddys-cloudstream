@@ -198,14 +198,15 @@ class DdysProvider(private val settings: DdysSettings) : MainAPI() {
     private suspend fun fetchMovieList(path: String, query: Map<String, String?>, limit: Int): MoviePage {
         val root = requestJson(path, query)
         val data = root.dataNode()
-        val items = data.arrayItems().mapNotNull { it.toMovie() }.take(limit)
+        val items = data.movieArrayItems().mapNotNull { it.toMovie() }.take(limit)
         return MoviePage(items, false)
     }
 
     private suspend fun fetchMoviePage(path: String, query: Map<String, String?>): MoviePage {
         val root = requestJson(path, query)
-        val items = root.dataNode().arrayItems().mapNotNull { it.toMovie() }
-        val meta = root.firstObject("meta", "pagination")
+        val data = root.dataNode()
+        val items = data.movieArrayItems().mapNotNull { it.toMovie() }
+        val meta = root.firstObject("meta", "pagination") ?: data.firstObject("meta", "pagination")
         val current = meta?.firstInt("current_page", "currentPage", "page") ?: (query["page"]?.toIntOrNull() ?: 1)
         val totalPages = meta?.firstInt("total_pages", "totalPages", "last_page", "lastPage", "pages")
         val hasNext = when {
@@ -377,8 +378,9 @@ class DdysProvider(private val settings: DdysSettings) : MainAPI() {
     private fun extractSlug(url: String): String? {
         val text = url.trim()
         if (text.startsWith("ddys:")) return text.removePrefix("ddys:").ifBlank { null }
-        val match = Regex("""/movie/([^/?#]+)""").find(text)?.groupValues?.getOrNull(1)
-            ?: text.substringAfterLast('/').substringBefore('?').substringBefore('#')
+        val path = text.substringBefore('?').substringBefore('#').trimEnd('/')
+        val match = Regex("""/(?:movie|movies)/([^/?#]+)""").find(path)?.groupValues?.getOrNull(1)
+            ?: path.substringAfterLast('/')
         return match.takeIf { it.isNotBlank() }?.let { URLDecoder.decode(it, "UTF-8") }
     }
 
@@ -422,6 +424,18 @@ class DdysProvider(private val settings: DdysSettings) : MainAPI() {
     private fun JsonNode?.arrayItems(): List<JsonNode> {
         if (this == null || !isArray) return emptyList()
         return map { it }
+    }
+
+    private fun JsonNode?.movieArrayItems(): List<JsonNode> {
+        if (this == null || isNull) return emptyList()
+        if (isArray) return map { it }
+        if (isObject) {
+            for (key in movieArrayKeys) {
+                val value = findField(key)
+                if (value != null && value.isArray) return value.map { it }
+            }
+        }
+        return emptyList()
     }
 
     private fun JsonNode.firstText(vararg names: String): String? {
@@ -581,5 +595,6 @@ class DdysProvider(private val settings: DdysSettings) : MainAPI() {
 
     companion object {
         private val resourceArrayKeys = listOf("items", "resources", "episodes", "playlist", "play", "urls", "list")
+        private val movieArrayKeys = listOf("items", "list", "results", "movies", "records", "data")
     }
 }
